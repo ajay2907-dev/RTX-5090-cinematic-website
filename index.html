@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NVIDIA GEFORCE RTX 5090 | Beyond Fast. Beyond Imagination.</title>
+  <meta name="description" content="Experience the flagship NVIDIA GeForce RTX 5090 graphics card with Blackwell architecture in a cinematic product film.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body>
+
+  <!-- Precision Custom Interactive Cursor -->
+  <div id="cursor-dot" class="cursor-dot"></div>
+  <div id="cursor-ring" class="cursor-ring">
+    <div class="cursor-crosshair ch-top"></div>
+    <div class="cursor-crosshair ch-right"></div>
+    <div class="cursor-crosshair ch-bottom"></div>
+    <div class="cursor-crosshair ch-left"></div>
+  </div>
+
+  <!-- Cinematic Studio Preloader -->
+  <div id="preloader" class="preloader">
+    <div class="preloader-bg-glow"></div>
+    <div class="preloader-content">
+      <div class="preloader-logo">
+        <span class="nvidia-mark">NVIDIA</span>
+        <span class="rtx-mark">RTX</span>
+      </div>
+      <p id="preloader-status" class="preloader-status">LOADING PRODUCT EXPERIENCE</p>
+      <div class="progress-track">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+      <div id="progress-percent" class="progress-percent">0%</div>
+    </div>
+  </div>
+
+  <!-- Minimal Luxury Navigation Header -->
+  <header class="site-header" id="site-header">
+    <div class="brand">
+      <span class="brand-nvidia">NVIDIA</span>
+      <span class="brand-slash">/</span>
+      <span class="brand-rtx">RTX</span>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#chapter-1" class="nav-item active" data-chapter="1">OVERVIEW</a></li>
+        <li><a href="#chapter-2" class="nav-item" data-chapter="2">BLACKWELL</a></li>
+        <li><a href="#chapter-3" class="nav-item" data-chapter="3">MEMORY</a></li>
+        <li><a href="#chapter-4" class="nav-item" data-chapter="4">AI</a></li>
+        <li><a href="#chapter-5" class="nav-item" data-chapter="5">RAY TRACING</a></li>
+      </ul>
+    </nav>
+    <a href="#chapter-2" class="header-cta magnetic-target">
+      <span>EXPLORE</span>
+      <span class="cta-arrow">→</span>
+      <div class="cta-shine"></div>
+    </a>
+  </header>
+
+  <!-- 600vh Continuous Scroll Container -->
+  <main class="scroll-container" id="scroll-track">
+    <!-- Sticky Fullscreen Viewport Housing Canvas & Studio Atmosphere -->
+    <div class="sticky-viewport" id="viewport">
+      <!-- Vignette & Film Grain Layers -->
+      <div class="vignette-overlay"></div>
+      <div class="noise-overlay"></div>
+      
+      <!-- Studio Environmental Horizon Lighting & Futuristic Wave Surface -->
+      <div class="ambient-glow-center" id="ambient-glow"></div>
+      <div class="ambient-glow-secondary" id="ambient-glow-secondary"></div>
+      <div class="ambient-wave" id="ambient-wave"></div>
+      <div class="ambient-grid"></div>
+
+      <!-- Floating Micro-Particles -->
+      <div class="ambient-particles" id="ambient-particles">
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+        <div class="particle p4"></div>
+        <div class="particle p5"></div>
+        <div class="particle p6"></div>
+      </div>
+
+      <!-- Layer 1 Typography: Layered Behind the GPU -->
+      <div class="hero-bg-text-layer" id="hero-bg-layer">
+        <div class="hero-bg-text">GEFORCE RTX</div>
+      </div>
+
+      <!-- Layer 3 & 4: Floor Shadow & Surface Reflection -->
+      <div class="gpu-ground-shadow"></div>
+      <div class="gpu-ground-reflection"></div>
+
+      <!-- Layer 3: HTML5 Canvas for 240 Frame Rendering (Dominant Hero) -->
+      <canvas id="gpu-canvas"></canvas>
+
+      <!-- ================================================================
+           CHOREOGRAPHED CHAPTER STORYTELLING LAYERS
+           ================================================================ -->
+      <div class="storytelling-container">
+
+        <!-- CHAPTER 01 — PRODUCT (Frames 0 to 40) [CENTERED CINEMATIC HERO] -->
+        <section class="story-chapter chapter-scene-hero active" id="chapter-1">
+          <div class="hero-top-eyebrow">
+            <span class="chapter-badge">01 / PRODUCT</span>
+            <div class="arch-label">
+              <span class="arch-dot"></span>
+              <span>NVIDIA BLACKWELL ARCHITECTURE</span>
+            </div>
+          </div>
+
+          <div class="hero-title-group" id="hero-typography">
+            <h1 class="hero-main-title">GEFORCE RTX 5090</h1>
+            <div class="hero-tagline-wrapper">
+              <span class="tag-part-1">BEYOND FAST.</span>
+              <span class="tag-part-2">BEYOND IMAGINATION.</span>
+            </div>
+            <p class="hero-desc">The ultimate GeForce GPU, engineered for extraordinary performance and next-generation experiences.</p>
+          </div>
+
+          <div class="hero-scroll-prompt" id="scroll-indicator">
+            <span class="scroll-text">SCROLL TO ROTATE</span>
+            <div class="mouse-indicator">
+              <div class="mouse-wheel"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHAPTER 02 — BLACKWELL (Frames 40 to 85) [LEFT LANDSCAPE SCENE] -->
+        <section class="story-chapter chapter-scene-left" id="chapter-2">
+          <div class="scene-panel">
+            <div class="chapter-tagline">
+              <span class="tagline-index">02 / BLACKWELL</span>
+            </div>
+            <h2 class="scene-heading">
+              BLACKWELL<br>
+              <span class="highlight-text">ARCHITECTURE.</span>
+            </h2>
+            <p class="scene-sub-heading">BUILT FOR THE NEXT ERA OF AI &amp; ADVANCED GRAPHICS.</p>
+            <div class="spec-matrix-grid">
+              <div class="spec-matrix-card">
+                <span class="spec-num count-up" data-count-target="21760" data-format="comma">0</span>
+                <span class="spec-label">CUDA CORES</span>
+              </div>
+              <div class="spec-matrix-card">
+                <span class="spec-num count-up" data-count-target="3352" data-format="comma">0</span>
+                <span class="spec-label">AI TOPS</span>
+              </div>
+            </div>
+            <p class="scene-desc">Delivering a massive generational leap with 5th-generation Tensor Cores and 4th-generation Ray Tracing Cores on TSMC 4NP process technology.</p>
+            <div class="precision-leader-line">
+              <div class="p-line"></div>
+              <div class="p-dot"></div>
+              <span class="p-text">TSMC 4NP CUSTOM PROCESS DIE</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHAPTER 03 — MEMORY (Frames 85 to 125) [RIGHT LANDSCAPE SCENE] -->
+        <section class="story-chapter chapter-scene-right" id="chapter-3">
+          <div class="scene-panel">
+            <div class="chapter-tagline">
+              <span class="tagline-index">03 / MEMORY</span>
+            </div>
+            <h2 class="scene-heading">
+              32GB OF<br>
+              <span class="highlight-text">GDDR7.</span>
+            </h2>
+            <p class="scene-sub-heading">MORE SPACE FOR THE MOST DEMANDING WORLDS.</p>
+            <div class="metadata-grid">
+              <div class="meta-item">
+                <span class="meta-lbl">MEMORY CAPACITY</span>
+                <span class="meta-val"><span class="count-up" data-count-target="32">0</span> GB GDDR7</span>
+              </div>
+              <div class="meta-divider"></div>
+              <div class="meta-item">
+                <span class="meta-lbl">INTERFACE</span>
+                <span class="meta-val"><span class="count-up" data-count-target="512">0</span>-BIT</span>
+              </div>
+              <div class="meta-divider"></div>
+              <div class="meta-item">
+                <span class="meta-lbl">BANDWIDTH</span>
+                <span class="meta-val"><span class="count-up" data-count-target="1792" data-format="comma">0</span> GB/S</span>
+              </div>
+            </div>
+            <p class="scene-desc">High-capacity next-generation memory designed for demanding 4K/8K gaming, creative studios, and large-scale AI model execution.</p>
+          </div>
+        </section>
+
+        <!-- CHAPTER 04 — AI (Frames 125 to 165) [LEFT LANDSCAPE SCENE] -->
+        <section class="story-chapter chapter-scene-left" id="chapter-4">
+          <div class="scene-panel">
+            <div class="chapter-tagline">
+              <span class="tagline-index">04 / AI COMPUTING</span>
+            </div>
+            <h2 class="scene-heading">
+              AI CHANGES<br>
+              <span class="highlight-text">THE FRAME.</span>
+            </h2>
+            <p class="scene-sub-heading">RENDER MORE. SIMULATE MORE. CREATE MORE.</p>
+            <div class="spec-matrix-grid">
+              <div class="spec-matrix-card">
+                <span class="spec-num count-up" data-count-target="3352" data-format="comma">0</span>
+                <span class="spec-label">TOTAL AI TOPS</span>
+              </div>
+              <div class="spec-matrix-card">
+                <span class="spec-num">DLSS 4</span>
+                <span class="spec-label">MULTI FRAME GEN</span>
+              </div>
+            </div>
+            <p class="scene-desc">Advanced AI hardware accelerates intelligent neural rendering, Ray Reconstruction, and next-generation transformer compute workloads.</p>
+            <div class="precision-leader-line">
+              <div class="p-line"></div>
+              <div class="p-dot"></div>
+              <span class="p-text">5TH GEN TENSOR CORES / NEURAL RENDERING</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHAPTER 05 — RAY TRACING (Frames 165 to 210) [RIGHT LANDSCAPE SCENE] -->
+        <section class="story-chapter chapter-scene-right" id="chapter-5">
+          <div class="scene-panel">
+            <div class="chapter-tagline">
+              <span class="tagline-index">05 / RAY TRACING</span>
+            </div>
+            <h2 class="scene-heading">
+              LIGHT,<br>
+              <span class="highlight-text">SIMULATED.</span>
+            </h2>
+            <p class="scene-sub-heading">BUILT FOR WORLDS THAT BEHAVE LIKE REALITY.</p>
+            <div class="metadata-grid">
+              <div class="meta-item">
+                <span class="meta-lbl">RAY TRACING THROUGHPUT</span>
+                <span class="meta-val"><span class="count-up" data-count-target="318">0</span> TFLOPS</span>
+              </div>
+              <div class="meta-divider"></div>
+              <div class="meta-item">
+                <span class="meta-lbl">BOOST CLOCK</span>
+                <span class="meta-val"><span class="count-up" data-count-target="2.41" data-decimals="2">0.00</span> GHZ</span>
+              </div>
+            </div>
+            <p class="scene-desc">Fourth-generation RT Cores deliver full neural path tracing for cinema-grade illumination, physically accurate reflections, and infinite bounce lighting.</p>
+            <div class="precision-leader-line">
+              <div class="p-line"></div>
+              <div class="p-dot"></div>
+              <span class="p-text">4TH GEN RT CORES / FULL PATH TRACING</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- CHAPTER 06 — CONCLUSION (Frames 210 to 239) [CINEMATIC FINALE] -->
+        <section class="story-chapter chapter-scene-finale" id="chapter-6">
+          <div class="finale-container">
+            <div class="finale-tagline">BEYOND FAST.</div>
+            <h2 class="finale-heading">
+              ENGINEERED FOR<br>
+              <span class="highlight-text">THE IMPOSSIBLE.</span>
+            </h2>
+            <div class="finale-actions">
+              <a href="#chapter-1" class="finale-cta magnetic-target" id="btn-replay">
+                <span>EXPLORE AGAIN</span>
+                <div class="cta-shine"></div>
+              </a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Refined Bottom Technical Telemetry -->
+      <div class="hud-corner hud-bottom-left" id="hud-left">
+        <div class="hud-item">
+          <span class="hud-accent">•</span>
+          <span class="hud-label">GPU MODEL:</span>
+          <span class="hud-val">RTX 5090 FE</span>
+        </div>
+        <div class="hud-divider"></div>
+        <div class="hud-item">
+          <span class="hud-label">MEMORY:</span>
+          <span class="hud-val">32GB GDDR7</span>
+        </div>
+      </div>
+
+      <div class="hud-corner hud-bottom-right" id="hud-right">
+        <div class="hud-item">
+          <span class="hud-label">FRAME</span>
+          <span id="hud-frame" class="hud-val">001 / 240</span>
+        </div>
+        <div class="hud-divider"></div>
+        <div class="hud-item">
+          <span class="hud-label">ROTATION</span>
+          <span id="hud-rotation" class="hud-val">0.0°</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
