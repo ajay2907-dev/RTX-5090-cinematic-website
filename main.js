@@ -510,8 +510,32 @@
   /* ==========================================================================
      7. EVENT LISTENERS & INITIALIZATION
      ========================================================================== */
-  window.addEventListener('resize', resizeCanvas);
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    if (resizeTimeout) cancelAnimationFrame(resizeTimeout);
+    resizeTimeout = requestAnimationFrame(resizeCanvas);
+  });
   window.addEventListener('scroll', calculateScrollStory, { passive: true });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      const nextChap = Math.min(CHAPTER_CONFIG.length, (activeChapterIndex === -1 ? 1 : activeChapterIndex + 1) + 1);
+      scrollToChapter(nextChap);
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      const prevChap = Math.max(1, (activeChapterIndex === -1 ? 1 : activeChapterIndex + 1) - 1);
+      scrollToChapter(prevChap);
+    }
+  });
+
+  let touchStartY = 0;
+  window.addEventListener('touchstart', e => touchStartY = e.touches[0].clientY, {passive: true});
+  window.addEventListener('touchend', e => {
+    const diff = touchStartY - e.changedTouches[0].clientY;
+    if (Math.abs(diff) > 50) {
+      const curr = activeChapterIndex === -1 ? 1 : activeChapterIndex + 1;
+      scrollToChapter(diff > 0 ? Math.min(CHAPTER_CONFIG.length, curr + 1) : Math.max(1, curr - 1));
+    }
+  }, {passive: true});
 
   window.addEventListener('DOMContentLoaded', () => {
     resizeCanvas();
