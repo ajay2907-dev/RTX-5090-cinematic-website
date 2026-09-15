@@ -62,6 +62,10 @@
   let activeChapterIndex = -1;
   const animatedChapters = new Set();
 
+  // Optimization State
+  let lastScrollY = -1;
+  let lastViewportHeight = -1;
+
   // Preloader status messages
   const STATUS_STEPS = [
     { threshold: 0.1, text: "LOADING PRODUCT EXPERIENCE" },
@@ -248,6 +252,17 @@
   function calculateScrollStory() {
     if (!scrollTrack) return;
 
+    // Optimization: Skip layout reads/writes if scroll hasn't changed
+    const currentScrollY = window.scrollY;
+    const currentViewportHeight = window.innerHeight;
+
+    if (lastScrollY === currentScrollY && lastViewportHeight === currentViewportHeight) {
+      return;
+    }
+
+    lastScrollY = currentScrollY;
+    lastViewportHeight = currentViewportHeight;
+
     const trackRect = scrollTrack.getBoundingClientRect();
     const totalScrollableDistance = trackRect.height - window.innerHeight;
 
@@ -292,37 +307,37 @@
         animatedChapters.add(currentChapterIdx);
         triggerChapterCountUps(activeEl);
       }
-    }
 
-    // Update Chapter visibility & optical transitions
-    chapters.forEach((chapterEl, idx) => {
-      if (!chapterEl) return;
-      if (idx === currentChapterIdx) {
-        chapterEl.classList.add('active');
-        chapterEl.classList.remove('exiting');
-      } else if (idx < currentChapterIdx) {
-        chapterEl.classList.remove('active');
-        chapterEl.classList.add('exiting');
-      } else {
-        chapterEl.classList.remove('active');
-        chapterEl.classList.remove('exiting');
+      // Update Chapter visibility & optical transitions
+      chapters.forEach((chapterEl, idx) => {
+        if (!chapterEl) return;
+        if (idx === currentChapterIdx) {
+          chapterEl.classList.add('active');
+          chapterEl.classList.remove('exiting');
+        } else if (idx < currentChapterIdx) {
+          chapterEl.classList.remove('active');
+          chapterEl.classList.add('exiting');
+        } else {
+          chapterEl.classList.remove('active');
+          chapterEl.classList.remove('exiting');
+        }
+      });
+
+      // Update Dynamic Navigation Active State
+      navItems.forEach((nav) => {
+        const targetChap = parseInt(nav.getAttribute('data-chapter'), 10);
+        if (targetChap === currentChapterIdx + 1) {
+          nav.classList.add('active');
+        } else {
+          nav.classList.remove('active');
+        }
+      });
+
+      // Dynamic Environment Reactions (AI & Ray Tracing)
+      if (viewport) {
+        viewport.classList.toggle('ai-active', currentChapterIdx === 3);
+        viewport.classList.toggle('rt-active', currentChapterIdx === 4);
       }
-    });
-
-    // Update Dynamic Navigation Active State
-    navItems.forEach((nav) => {
-      const targetChap = parseInt(nav.getAttribute('data-chapter'), 10);
-      if (targetChap === currentChapterIdx + 1) {
-        nav.classList.add('active');
-      } else {
-        nav.classList.remove('active');
-      }
-    });
-
-    // Dynamic Environment Reactions (AI & Ray Tracing)
-    if (viewport) {
-      viewport.classList.toggle('ai-active', currentChapterIdx === 3);
-      viewport.classList.toggle('rt-active', currentChapterIdx === 4);
     }
   }
 
