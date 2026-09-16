@@ -19,6 +19,7 @@
   const progressBar = document.getElementById('progress-bar');
   const progressPercent = document.getElementById('progress-percent');
   const preloaderStatus = document.getElementById('preloader-status');
+  const progressContainer = document.getElementById('progress-container');
   
   // Chapter Scene Elements
   const chapters = [
@@ -103,6 +104,7 @@
 
     if (progressBar) progressBar.style.width = `${percentage}%`;
     if (progressPercent) progressPercent.textContent = `${percentage}%`;
+    if (progressContainer) progressContainer.setAttribute('aria-valuenow', percentage);
 
     for (let step of STATUS_STEPS) {
       if (progress >= step.threshold) {
