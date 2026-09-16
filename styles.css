@@ -45,6 +45,7 @@ body {
   user-select: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* Custom Scrollbar */
@@ -287,7 +288,7 @@ body {
 }
 
 .nav-item {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
   font-size: 0.66rem;
   font-weight: 600;
@@ -714,7 +715,7 @@ body {
   font-family: var(--font-title);
   font-size: clamp(2.5rem, 6vw, 5.2rem);
   font-weight: 700;
-  letter-spacing: clamp(0px, -0.05vw, -2px);
+  letter-spacing: clamp(-2px, -0.05vw, 0px);
   text-transform: none;
   background: linear-gradient(180deg, #ffffff 0%, #e1e6ee 80%, #9097a7 100%);
   -webkit-background-clip: text;
@@ -874,8 +875,8 @@ body {
   font-size: 0.85rem;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.65);
-  line-height: 1.5;
-  letter-spacing: 0px;
+  line-height: 1.65;
+  letter-spacing: 0.2px;
   max-width: 440px;
   margin-top: 0.8rem;
   text-shadow: none;
@@ -1036,7 +1037,7 @@ body {
   font-size: clamp(2.5rem, 6vw, 5.2rem);
   font-weight: 700;
   line-height: 1.05;
-  letter-spacing: clamp(0px, -0.05vw, -2px);
+  letter-spacing: clamp(-2px, -0.05vw, 0px);
   text-transform: none;
   color: #ffffff;
   margin-bottom: 2rem;
@@ -1117,7 +1118,7 @@ body {
 }
 
 .hud-label {
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.65);
   font-weight: 600;
   font-size: 0.54rem;
 }
