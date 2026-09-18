@@ -1,4 +1,5 @@
 import urllib.request
+from unittest.mock import patch
 
 urls = [
     "http://localhost:8000/",
@@ -10,10 +11,18 @@ urls = [
     "http://localhost:8000/public/frames/frame_240.jpg"
 ]
 
+def check_urls(url_list):
+    for url in url_list:
+        try:
+            res = urllib.request.urlopen(url)
+            print(f"[OK 200] {url} (size: {len(res.read())} bytes)")
+        except Exception as e:
+            print(f"[FAIL] {url}: {e}")
+
 print("--- Testing HTTP Server Responses ---")
-for url in urls:
-    try:
-        res = urllib.request.urlopen(url)
-        print(f"[OK 200] {url} (size: {len(res.read())} bytes)")
-    except Exception as e:
-        print(f"[FAIL] {url}: {e}")
+check_urls(urls)
+
+print("--- Testing Error Handling ---")
+with patch('urllib.request.urlopen') as mock_urlopen:
+    mock_urlopen.side_effect = Exception("Simulated connection error")
+    check_urls(["http://localhost:8000/error_test"])
