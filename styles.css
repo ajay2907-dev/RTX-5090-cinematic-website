@@ -125,12 +125,6 @@ body {
   backdrop-filter: blur(4px);
 }
 
-@media (pointer: coarse) {
-  .cursor-dot, .cursor-ring {
-    display: none !important;
-  }
-}
-
 /* ==========================================================================
    CINEMATIC PRELOADER
    ========================================================================== */
