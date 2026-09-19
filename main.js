@@ -507,6 +507,20 @@
         if (cursorRing) cursorRing.classList.remove('targeting');
       });
     });
+
+    // Add touch and click interactions for the cursor
+    window.addEventListener('mousedown', () => {
+      if (cursorRing) cursorRing.classList.add('clicking');
+    });
+    window.addEventListener('mouseup', () => {
+      if (cursorRing) cursorRing.classList.remove('clicking');
+    });
+    window.addEventListener('touchstart', () => {
+      if (cursorRing) cursorRing.classList.add('clicking');
+    }, {passive: true});
+    window.addEventListener('touchend', () => {
+      if (cursorRing) cursorRing.classList.remove('clicking');
+    }, {passive: true});
   }
 
   /* ==========================================================================
