@@ -429,34 +429,25 @@
   let ringX = mouseX;
   let ringY = mouseY;
 
-  window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+  let mouseNormX = 0;
+  let mouseNormY = 0;
+  let gyroNormX = 0;
+  let gyroNormY = 0;
+
+  function updateCursorAndParallax(clientX, clientY) {
+    mouseX = clientX;
+    mouseY = clientY;
 
     if (cursorDot) {
       cursorDot.style.left = `${mouseX}px`;
       cursorDot.style.top = `${mouseY}px`;
     }
 
-    // Subtle parallax on ambient glow, wave & hero text
-    const normX = (mouseX / window.innerWidth - 0.5) * 2;
-    const normY = (mouseY / window.innerHeight - 0.5) * 2;
+    // Calculate mouse/touch normalized position for parallax
+    mouseNormX = (mouseX / window.innerWidth - 0.5) * 2;
+    mouseNormY = (mouseY / window.innerHeight - 0.5) * 2;
 
-    if (ambientGlow) {
-      ambientGlow.style.transform = `translate(calc(-50% + ${normX * 16}px), calc(-50% + ${normY * 16}px))`;
-    }
-
-    if (ambientWave) {
-      ambientWave.style.transform = `translateX(calc(-50% + ${normX * 10}px))`;
-    }
-
-    if (heroBgLayer && activeChapterIndex === 0) {
-      heroBgLayer.style.transform = `translate(calc(-50% + ${normX * -12}px), calc(-50% + ${normY * -12}px))`;
-    }
-
-    if (heroTypography && activeChapterIndex === 0) {
-      heroTypography.style.transform = `translate(${normX * 6}px, ${normY * 6}px)`;
-    }
+    applyCombinedParallax();
 
     // Magnetic button attraction
     const magneticTargets = document.querySelectorAll('.magnetic-target');
@@ -474,7 +465,82 @@
         target.style.transform = `translate(0px, 0px)`;
       }
     });
+  }
+
+  function applyCombinedParallax() {
+    // Combine mouse and gyro inputs, clamping to -1 to 1 range
+    const normX = Math.max(-1, Math.min(1, mouseNormX + gyroNormX));
+    const normY = Math.max(-1, Math.min(1, mouseNormY + gyroNormY));
+
+    if (ambientGlow) {
+      ambientGlow.style.transform = `translate(calc(-50% + ${normX * 16}px), calc(-50% + ${normY * 16}px))`;
+    }
+
+    if (ambientWave) {
+      ambientWave.style.transform = `translateX(calc(-50% + ${normX * 10}px))`;
+    }
+
+    if (heroBgLayer && activeChapterIndex === 0) {
+      heroBgLayer.style.transform = `translate(calc(-50% + ${normX * -12}px), calc(-50% + ${normY * -12}px))`;
+    }
+
+    if (heroTypography && activeChapterIndex === 0) {
+      heroTypography.style.transform = `translate(${normX * 6}px, ${normY * 6}px)`;
+    }
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    updateCursorAndParallax(e.clientX, e.clientY);
   });
+
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+      updateCursorAndParallax(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 0) {
+      updateCursorAndParallax(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  // Gyroscope subtle parallax for mobile
+  function handleOrientation(e) {
+    if (e.gamma !== null && e.beta !== null) {
+      let gamma = e.gamma;
+      let beta = e.beta;
+
+      gamma = Math.max(-30, Math.min(30, gamma));
+      beta = Math.max(-30, Math.min(30, beta));
+
+      gyroNormX = gamma / 30;
+      const rawGyroY = (beta - 45) / 30;
+      gyroNormY = Math.max(-1, Math.min(1, rawGyroY));
+
+      applyCombinedParallax();
+    }
+  }
+
+  window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+
+  // Handle iOS 13+ gyroscope permission on first interaction
+  let permissionRequested = false;
+  function requestGyroPermission() {
+    if (!permissionRequested && typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      permissionRequested = true;
+      DeviceOrientationEvent.requestPermission()
+        .then(permissionState => {
+          if (permissionState === 'granted') {
+            window.addEventListener('deviceorientation', handleOrientation, { passive: true });
+          }
+        })
+        .catch(console.error);
+    }
+  }
+
+  window.addEventListener('click', requestGyroPermission, { once: true });
+  window.addEventListener('touchstart', requestGyroPermission, { once: true, passive: true });
 
   function updateCustomCursor() {
     if (!cursorRing) return;
@@ -542,16 +608,6 @@
       scrollToChapter(prevChap);
     }
   });
-
-  let touchStartY = 0;
-  window.addEventListener('touchstart', e => touchStartY = e.touches[0].clientY, {passive: true});
-  window.addEventListener('touchend', e => {
-    const diff = touchStartY - e.changedTouches[0].clientY;
-    if (Math.abs(diff) > 50) {
-      const curr = activeChapterIndex === -1 ? 1 : activeChapterIndex + 1;
-      scrollToChapter(diff > 0 ? Math.min(CHAPTER_CONFIG.length, curr + 1) : Math.max(1, curr - 1));
-    }
-  }, {passive: true});
 
   window.addEventListener('DOMContentLoaded', () => {
     resizeCanvas();
