@@ -429,9 +429,9 @@
   let ringX = mouseX;
   let ringY = mouseY;
 
-  window.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+  function handlePointerMove(clientX, clientY) {
+    mouseX = clientX;
+    mouseY = clientY;
 
     if (cursorDot) {
       cursorDot.style.left = `${mouseX}px`;
@@ -474,7 +474,44 @@
         target.style.transform = `translate(0px, 0px)`;
       }
     });
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    handlePointerMove(e.clientX, e.clientY);
   });
+
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+      handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 0) {
+      handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  // Premium mobile gyroscope interaction
+  window.addEventListener('deviceorientation', (e) => {
+    if (e.gamma === null || e.beta === null) return;
+
+    // gamma is left/right (-90 to 90), beta is front/back (-180 to 180)
+    let gamma = Math.max(-45, Math.min(45, e.gamma));
+    let beta = Math.max(-45, Math.min(45, e.beta - 45)); // assume holding device at ~45 deg
+
+    const normX = gamma / 45;
+    const normY = beta / 45;
+
+    // Apply a secondary subtle device parallax overlay without overriding touch/mouse
+    if (ambientGlow) {
+      ambientGlow.style.transform = `translate(calc(-50% + ${normX * 12}px), calc(-50% + ${normY * 12}px))`;
+    }
+    if (ambientWave) {
+      ambientWave.style.transform = `translateX(calc(-50% + ${normX * 8}px))`;
+    }
+  });
+
 
   function updateCustomCursor() {
     if (!cursorRing) return;
@@ -542,16 +579,6 @@
       scrollToChapter(prevChap);
     }
   });
-
-  let touchStartY = 0;
-  window.addEventListener('touchstart', e => touchStartY = e.touches[0].clientY, {passive: true});
-  window.addEventListener('touchend', e => {
-    const diff = touchStartY - e.changedTouches[0].clientY;
-    if (Math.abs(diff) > 50) {
-      const curr = activeChapterIndex === -1 ? 1 : activeChapterIndex + 1;
-      scrollToChapter(diff > 0 ? Math.min(CHAPTER_CONFIG.length, curr + 1) : Math.max(1, curr - 1));
-    }
-  }, {passive: true});
 
   window.addEventListener('DOMContentLoaded', () => {
     resizeCanvas();
