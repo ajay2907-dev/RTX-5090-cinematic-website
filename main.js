@@ -15,6 +15,9 @@
   const viewport = document.getElementById('viewport');
   const siteHeader = document.getElementById('site-header');
   
+  // Performance caching: avoid expensive DOM queries during high-frequency events
+  const cachedMagneticTargets = document.querySelectorAll('.magnetic-target');
+
   const preloader = document.getElementById('preloader');
   const progressBar = document.getElementById('progress-bar');
   const progressPercent = document.getElementById('progress-percent');
@@ -450,8 +453,7 @@
     applyCombinedParallax();
 
     // Magnetic button attraction
-    const magneticTargets = document.querySelectorAll('.magnetic-target');
-    magneticTargets.forEach((target) => {
+    cachedMagneticTargets.forEach((target) => {
       const rect = target.getBoundingClientRect();
       const targetCenterX = rect.left + rect.width / 2;
       const targetCenterY = rect.top + rect.height / 2;
