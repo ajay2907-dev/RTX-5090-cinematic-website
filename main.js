@@ -526,9 +526,9 @@
       const activeChapter = chapters[activeChapterIndex];
       const scenePanel = activeChapter.querySelector('.scene-panel');
       if (scenePanel) {
-        // Reduced rotation angles for a more premium, subtle feel
-        const rotateX = -normY * 3;
-        const rotateY = normX * 4;
+        // Increased rotation angles for a more interactive and unique premium feel
+        const rotateX = -normY * 12;
+        const rotateY = normX * 16;
 
         // Retrieve parallax Y offset calculated in calculateScrollStory
         const scrollParallaxOffset = scenePanel.dataset.parallaxY || '0';
