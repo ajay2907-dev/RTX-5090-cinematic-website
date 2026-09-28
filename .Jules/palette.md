@@ -12,3 +12,6 @@
 ## 2026-09-19 - Gyroscope Parallax and Cursor on Mobile
 **Learning:** Implementing gyroscope (deviceorientation) combined with touch/mouse parallax requires clamping the combined values to prevent extreme movement or jitter. Furthermore, iOS 13+ requires explicit user interaction (click or touchstart) to request `DeviceOrientationEvent.requestPermission()` before device orientation data can be accessed.
 **Action:** Applied combined normalized input clamping and bound a permission request to the first user interaction for the premium mobile gyroscope parallax feature.
+## 2026-09-28 - JS Synchronization for Parallax and Mouse Events
+**Learning:** When multiple input sources (like scroll events and mouse/gyro events) both update the same visual CSS properties (like `transform`), they will easily override each other and stutter if not synchronized.
+**Action:** Use a unified render function (e.g., `applyCombinedParallax`) that combines data from all input sources, and have individual event listeners (scroll, mousemove, orientation) update their respective state variables and then explicitly call the unified render function, rather than modifying the DOM independently.
