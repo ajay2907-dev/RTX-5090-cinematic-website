@@ -95,7 +95,7 @@ body {
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: transform 0.12s ease-out, width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.12s ease-out, width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
   mix-blend-mode: difference;
 }
 
@@ -113,17 +113,23 @@ body {
 .cursor-ring.active {
   width: 64px;
   height: 64px;
-  border-color: rgba(255, 255, 255, 0.8);
-  background-color: transparent;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  mix-blend-mode: normal;
 }
 
 .cursor-ring.targeting {
   width: 80px;
   height: 80px;
   border-color: rgba(255, 255, 255, 0.2);
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  mix-blend-mode: normal;
 }
 
 /* ==========================================================================
@@ -855,7 +861,7 @@ body {
 .chapter-scene-left .scene-panel {
   position: absolute;
   left: 5vw;
-  top: 45%;
+  top: 50%;
   transform: translateY(-50%);
   text-align: left;
 }
@@ -863,7 +869,7 @@ body {
 .chapter-scene-right .scene-panel {
   position: absolute;
   right: 5vw;
-  top: 45%;
+  top: 50%;
   transform: translateY(-50%);
   text-align: left;
 }

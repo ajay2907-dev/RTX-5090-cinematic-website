@@ -1,3 +1,5 @@
 ## 2026-09-28 - Shared Interactive Logic
 **Learning:** Mobile interactivity (touchmove, touchstart, deviceorientation) and desktop mouse events (mousemove) both update normalized coordinates and call `applyCombinedParallax()` through `updateCursorAndParallax`. The code review failed to spot this.
-**Action:** When updating 3D transformations inside `applyCombinedParallax()`, remember that it automatically applies to mobile devices as well.
+**Action:** When updating 3D transformations inside `applyCombinedParallax()`, remember that it automatically applies to mobile devices as well.## 2026-09-28 - Frosted Glass Interactive Cursor and Panel Alignment
+**Learning:** Replaced a visual inversion `mix-blend-mode: difference` cursor with a modern frosted glass aesthetic using `backdrop-filter: blur()`, semitransparent backgrounds, and `mix-blend-mode: normal` to cleanly stack over other interactive DOM elements. Verified that setting `top: 50%` combined with `transform: translateY(-50%)` effectively aligns absolute scene panels cleanly on the Y-axis.
+**Action:** Applied CSS updates to standard interactive pseudo-classes (.active and .targeting) for custom frosted glass interactive states without introducing unneeded classes.
