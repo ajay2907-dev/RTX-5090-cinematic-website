@@ -344,6 +344,27 @@
         viewport.classList.toggle('rt-active', currentChapterIdx === 4);
       }
     }
+
+    // Apply Parallax scrolling to active chapter scene panel
+    if (activeChapterIndex > 0 && activeChapterIndex < 5) {
+      const activeChapter = chapters[activeChapterIndex];
+      const scenePanel = activeChapter.querySelector('.scene-panel');
+      if (scenePanel) {
+        const cfg = CHAPTER_CONFIG[activeChapterIndex];
+        const chapterDuration = cfg.endFrame - cfg.startFrame;
+        const progressInChapter = (roundedFrame - cfg.startFrame) / chapterDuration;
+
+        // Calculate a gentle Y offset: -30px at start, +30px at end
+        // This gives a feeling of the text panel floating as the user scrolls
+        const scrollParallaxY = (progressInChapter - 0.5) * -60;
+
+        // Store for use in the applyCombinedParallax function
+        scenePanel.dataset.parallaxY = scrollParallaxY;
+
+        // Ensure combined parallax is re-applied so scroll offset is instantly visible
+        applyCombinedParallax();
+      }
+    }
   }
 
   let lastRenderedFrame = -1;
@@ -463,8 +484,18 @@
         const pullX = (mouseX - targetCenterX) * 0.35;
         const pullY = (mouseY - targetCenterY) * 0.35;
         target.style.transform = `translate(${pullX}px, ${pullY}px)`;
+
+        // Enhance with 3D inner text parallax
+        const innerText = target.querySelector('span');
+        if (innerText) {
+          innerText.style.transform = `translate(${pullX * 0.5}px, ${pullY * 0.5}px)`;
+        }
       } else {
         target.style.transform = `translate(0px, 0px)`;
+        const innerText = target.querySelector('span');
+        if (innerText) {
+          innerText.style.transform = `translate(0px, 0px)`;
+        }
       }
     });
   }
@@ -488,6 +519,22 @@
 
     if (heroTypography && activeChapterIndex === 0) {
       heroTypography.style.transform = `translate(${normX * 6}px, ${normY * 6}px)`;
+    }
+
+    // Apply 3D Tilt/Perspective to active scene panel
+    if (activeChapterIndex > 0 && activeChapterIndex < 5) {
+      const activeChapter = chapters[activeChapterIndex];
+      const scenePanel = activeChapter.querySelector('.scene-panel');
+      if (scenePanel) {
+        // Reduced rotation angles for a more premium, subtle feel
+        const rotateX = -normY * 3;
+        const rotateY = normX * 4;
+
+        // Retrieve parallax Y offset calculated in calculateScrollStory
+        const scrollParallaxOffset = scenePanel.dataset.parallaxY || '0';
+
+        scenePanel.style.transform = `perspective(1200px) translateY(${scrollParallaxOffset}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      }
     }
   }
 
