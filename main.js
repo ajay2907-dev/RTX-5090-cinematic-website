@@ -521,19 +521,22 @@
       heroTypography.style.transform = `translate(${normX * 6}px, ${normY * 6}px)`;
     }
 
-    // Apply 3D Tilt/Perspective to active scene panel
+    // Apply Premium 3D Tilt/Perspective to active scene panel
     if (activeChapterIndex > 0 && activeChapterIndex < 5) {
       const activeChapter = chapters[activeChapterIndex];
       const scenePanel = activeChapter.querySelector('.scene-panel');
       if (scenePanel) {
-        // Increased rotation angles for a more interactive and unique premium feel
-        const rotateX = -normY * 12;
-        const rotateY = normX * 16;
+        // More subtle and premium 3D rotation angles, added subtle translation for depth
+        const rotateX = -normY * 8;
+        const rotateY = normX * 12;
+        const translateX = normX * -15;
+        const translateY = normY * -15;
 
         // Retrieve parallax Y offset calculated in calculateScrollStory
         const scrollParallaxOffset = scenePanel.dataset.parallaxY || '0';
 
-        scenePanel.style.transform = `perspective(1200px) translateY(${scrollParallaxOffset}px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        // Add translateZ for depth
+        scenePanel.style.transform = `perspective(1200px) translate3d(${translateX}px, calc(${scrollParallaxOffset}px + ${translateY}px), 30px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
       }
     }
   }
