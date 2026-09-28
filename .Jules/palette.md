@@ -1,17 +1,3 @@
-## 2026-09-15 - [Keyboard and Touch Nav Accessibility]
-**Learning:** Implementing keydown and touchstart/touchend listeners expands accessibility and allows easier navigation between scrolling chapters on different devices.
-**Action:** Added Arrow key navigation and touch swipe gesture listeners for switching chapters in main.js.
-## 2024-05-18 - Screen Reader Compatibility on Preloader
-**Learning:** Found a missing `role="progressbar"` in the visual loader on a static vanilla JS site.
-**Action:** Adding standard ARIA properties with dynamic attribute updates ensures visual loading elements convey meaning to screen reader users. Added aria-hidden to the numeric counter to avoid redundancy.
-
-## 2024-09-19 - Apple-style UI Overhaul
-**Learning:** To achieve a premium "Apple-like" aesthetic, it's effective to combine a clean sans-serif font stack (e.g., Inter), use a minimalist color palette (e.g., introducing a subtle silver and softening bright neon accents), and employ CSS frosted glass effects (`backdrop-filter: blur`, semi-transparent backgrounds).
-**Action:** Applied these techniques by updating CSS typography and colors, tweaking `.scene-panel` for a glassmorphism look, and softening green glows to match the desired premium feel.
-## 2026-09-19 - Gyroscope Parallax and Cursor on Mobile\n**Learning:** Implementing gyroscope (deviceorientation) combined with touch/mouse parallax requires clamping the combined values to prevent extreme movement or jitter. Furthermore, iOS 13+ requires explicit user interaction (click or touchstart) to request  before device orientation data can be accessed.\n**Action:** Applied combined normalized input clamping and bound a permission request to the first user interaction for the premium mobile gyroscope parallax feature.
-## 2026-09-19 - Gyroscope Parallax and Cursor on Mobile
-**Learning:** Implementing gyroscope (deviceorientation) combined with touch/mouse parallax requires clamping the combined values to prevent extreme movement or jitter. Furthermore, iOS 13+ requires explicit user interaction (click or touchstart) to request `DeviceOrientationEvent.requestPermission()` before device orientation data can be accessed.
-**Action:** Applied combined normalized input clamping and bound a permission request to the first user interaction for the premium mobile gyroscope parallax feature.
-## 2026-09-28 - JS Synchronization for Parallax and Mouse Events
-**Learning:** When multiple input sources (like scroll events and mouse/gyro events) both update the same visual CSS properties (like `transform`), they will easily override each other and stutter if not synchronized.
-**Action:** Use a unified render function (e.g., `applyCombinedParallax`) that combines data from all input sources, and have individual event listeners (scroll, mousemove, orientation) update their respective state variables and then explicitly call the unified render function, rather than modifying the DOM independently.
+## 2026-09-28 - Shared Interactive Logic
+**Learning:** Mobile interactivity (touchmove, touchstart, deviceorientation) and desktop mouse events (mousemove) both update normalized coordinates and call `applyCombinedParallax()` through `updateCursorAndParallax`. The code review failed to spot this.
+**Action:** When updating 3D transformations inside `applyCombinedParallax()`, remember that it automatically applies to mobile devices as well.
